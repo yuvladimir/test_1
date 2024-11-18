@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Products {
+  plu  Int    @id
+  name String
+
+  @@map("products")
+}
+
+model Stocks {
+  plu              Int
+  shopId           Int @map("shop_id")
+  onShelfQuantity  Int @map("on_shelf_quantity")
+  inOrdersQuantity Int @map("in_orders_quantity")
+
+  @@unique([plu, shopId])
+  @@map("stocks")
+}
